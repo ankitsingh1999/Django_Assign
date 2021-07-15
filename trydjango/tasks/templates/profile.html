@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+</head>
+<body>
+    <h4>Verified User's Profile </h4>
+
+    <table class="table" >
+      
+      <thead>
+          <tr>
+            <th scope="col">Id</th><br>
+            <th scope="col">username</th>
+            <th scope="col">Email</th>
+            
+            <th scope="col">Address</th>
+            <th scope="col">Action</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        {% for data in form %}
+          <tr>
+            <th scope="row">{{data.id}}</th>
+            <td>{{data.username}}</td>
+            <td>{{data.email}}</td>
+            <td>{{data.last_name}}</td>
+            <td>  <a href="{% url 'userupdate' data.id  %}" >Edit</a>  
+             
+              <form action="{% url 'userdelete' data.id  %}" method= "POST"> 
+                {% csrf_token %}
+               <input type="submit" value="Delete"> 
+
+             </form>
+
+          
+          </tr>
+        {% endfor %}
+
+       
+        
+      </tbody>
+    </table><br>
+    <a href="{% url 'logout' %}">logout</a> 
+    
+</body>
+</html>
+
+{% endblock content %}
